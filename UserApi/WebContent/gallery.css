@@ -1,0 +1,64 @@
+#gallery-wrapper {
+	width: 650px;	
+	margin-bottom: 20px;
+}
+
+#gallery
+{
+	width: 650px;
+}
+
+#gallery img.output
+{
+	width: 632px;
+	height: 350px;
+	margin-bottom: 6px;
+	margin-left: 4px;
+	border: solid 5px #F0B4EE;
+}
+
+#gallery span.caption
+{
+	display: block;
+	margin: 1em 0 1em 0;
+}
+
+#thumbnail-bg {
+	background: #F3F0E6;
+}
+
+#gallery ul.thumbnails
+{
+	width: 100%;
+	list-style: none;
+	margin: 0;
+	padding: 0 0 0 5px;
+}
+
+#gallery ul.thumbnails li
+{
+	float: left;
+	margin: 0 8px 1em 0;
+}
+
+#gallery ul.thumbnails li img .last 
+{
+	margin-right: 0px;
+}
+
+#gallery ul.thumbnails li img
+{
+	width: 144px;
+	height: 85px;
+	border: solid 5px #F0B4EE;
+	cursor: pointer;
+}
+
+#gallery ul.thumbnails li img.active
+{
+	border: solid 5px #BD6CBA;
+}
+
+.transparent {
+
+}

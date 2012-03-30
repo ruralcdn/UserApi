@@ -149,9 +149,9 @@ public class UploadFile extends HttpServlet {
 				if(filexugg.exists()){
 					String namexugg = Integer.toString(num);
 					//System.out.println("File exits");
-					String targetPath = "E:/data/DBServer/";
+					String targetPath = "E:/data/DBServer/";//create this entry in config file
 
-					String imgPath = "C:/Users/Administrator/workspace/PubSubApi/WebContent/DBServer/";
+					String imgPath = "C:/Users/UserDaemon/git/UserApi/UserApi/WebContent/DBServer/";//create this entry in config file
 					copyFile(filexugg,new File(imgPath+content+".jpg"));
 					thumbNail = content+".jpg" ;
 					filexugg.renameTo(new File(targetPath+thumbNail));

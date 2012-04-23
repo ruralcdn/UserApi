@@ -56,7 +56,9 @@ public class UploadFile extends HttpServlet {
 		lastIndex = path.lastIndexOf("\\");	       
 		fileName = path.substring(lastIndex + 1, path.length());
 
-		//System.out.println("filename : "+ fileName);
+		System.out.println("filename : "+ fileName);
+		System.out.println("path : "+ path);
+		
 
 		String connectionURL = "jdbc:mysql://localhost:3306/ruralcdn";   
 		java.sql.Connection con=null ; 
@@ -101,7 +103,7 @@ public class UploadFile extends HttpServlet {
 					}
 				}				
 
-				//System.out.println("ContentId : "+ contentId);
+				System.out.println("ContentId : "+ contentId);
 				//System.out.println("stub.Upload called");
 			}catch(Exception ex){				
 				System.err.println("content id not generated");
@@ -115,9 +117,9 @@ public class UploadFile extends HttpServlet {
 				String dirpath = "E:/data/user/downloads/";
 				String fullpath = dirpath +fileName;
 
-				//System.out.println("fullpath is"+fullpath);//to be commented
+				System.out.println("fullpath is"+fullpath);//to be commented
 
-				//String thumbFile = VideoUtility.VideoUtil(fullpath);
+				//String thumbFile = VideoUtility.VideoUtil(fullpath);//previous software used for creating screen shoot
 				//Thumbnail call
 
 				String thumbFile = "E:/thumbnails/Deafault.jpg";
@@ -166,7 +168,18 @@ public class UploadFile extends HttpServlet {
 
 			String ext = fileName.substring(fileName.lastIndexOf("."));
 			contentId = contentId+ext ;
-			System.out.println("ContentIdn generated inside UploadFile : "+contentId);
+			System.out.println("ContentIdn generated inside UploadFile : "+contentId);			
+			
+			/**
+			 * code for moving the file
+			 */		
+			
+			try{
+				stub.moveFile(FilePath, contentId);
+			}catch(Exception ex){
+				System.out.println();
+			}
+			
 			if(contentId.startsWith("null")){	
 
 				System.err.println("Your file is not uploaded");

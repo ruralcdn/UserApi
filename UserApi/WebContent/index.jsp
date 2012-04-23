@@ -200,7 +200,7 @@ $(document).ready(function() {
 						<form action="UserValid"  name="onlineform" onSubmit="return validateform( this.form )" method="post" align="center">
 							<table bgcolor="#D8D8D8" width="280" bordercolor="red">			
 								<tr><td>Please enter your Username & Password</td></tr>
-								<tr><td><b>Username:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="username" id="search-text" value="" /></td></tr>
+								<tr><td><b>Username:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="username" id="search-text" value="" /></td></tr>
 								<tr><td><b>Password:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="password" id="search-text" value="" /></td></tr>
 								<tr align="right"><td align="right"><input type="submit" id="search-submit" value="Login" align="right"/></td></tr>
 							</table>

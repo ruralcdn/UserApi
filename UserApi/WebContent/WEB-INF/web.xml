@@ -30,6 +30,10 @@
     <servlet-class>ruralcdn.pubsub.FileDownload</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>FileDownloadNew</servlet-name>
+    <servlet-class>ruralcdn.pubsub.FileDownloadNew</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>FileDelete</servlet-name>
     <servlet-class>ruralcdn.pubsub.FileDelete</servlet-class>
   </servlet>

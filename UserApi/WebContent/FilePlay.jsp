@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <%@ page import="java.sql.*" %>
 <%@ page import="java.io.*" %> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
@@ -11,13 +9,30 @@
 <title>Welcome To CDN</title>
 <link href="style.css" rel="stylesheet" type="text/css" media="screen" />
 <script type="text/javascript" src="jquery/jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+function validateform1()
+{	
+	if(document.onlineform1.filename.value=="") {
+	window.alert ("Please Enter a filename!");
+	return false;
+	}	
+	if(document.onlineform1.title.value=="") {
+	window.alert ("Please Enter a title!");
+	return false;
+	}
+	if(document.onlineform1.description.value=="") {
+	window.alert ("Please Enter the Description!");
+	return false;
+	}
+return true;
+}
+</script>
 <script type="text/javascript" src="jquery/jquery.gallerax-0.2.js"></script>
 <style type="text/css">
 @import "gallery.css";
 </style>
 </head>
 <body>
-<%response.setIntHeader("Refresh",3); %>
 <%
 String username=(String) session.getAttribute("ulogname");
 //if(username.length()==0){
@@ -25,7 +40,7 @@ if(username == null){
 	String redirectURL = "index.jsp";
 	response.sendRedirect(redirectURL);
 }
-%>
+%> 
 <div id="wrapper">
 	<div id="header">
 		<div id="logo">
@@ -39,7 +54,7 @@ if(username == null){
 	<div id="menu">
 		<ul >
 			<li class="current_page_item"><a href="WelcomeUser.jsp">Home</a></li>
-			<li><a href="UploadFile.jsp">Upload</a></li>			
+			<li><a href="UploadFile.jsp">Upload File</a></li>			
 			<li><a href="UserStatus.jsp">Status</a></li>
 			<li><a href="AllCategories.jsp">Categories</a></li>
 			<li><a href="AllUsers.jsp">Users</a></li>
@@ -57,58 +72,54 @@ if(username == null){
 						<div id="gallery"> 
 							<div id="thumbnail-bg">
 								<!--upload form-->
-								<%String contentid=(String) session.getAttribute("contentid"); 								
-								try {							          
-								String connectionURL = "jdbc:mysql://localhost:3306/ruralcdn";         
-								Connection connection = null;         
-								Statement statement = null;
-								ResultSet rs = null;								
-								Class.forName("com.mysql.jdbc.Driver").newInstance();       
-								connection = DriverManager.getConnection(connectionURL, "root", "abc123");          
-								statement = connection.createStatement();
-								System.out.println("After Upload contentid = " +contentid);
-								%>
-								<%           
-								   	String QueryString = "SELECT flag from uploadeditem where dsid like '%"+contentid+"%'";
-								//String QueryString = "SELECT contentid from status where type = 0 & contentid like '%"+contentid+"%' ";
-								   	try{
-								   		rs = statement.executeQuery(QueryString);
-								   	}catch(Exception ex){
-								   		
-								   	}
-								   	
-								%>
-								<table width="650" bgcolor="orchid">
-									<th><h3>Your File request has been sent</h3></th>									
-								</table>
-								<br>
-								<table width="650" bgcolor="pink" >
-										<%if(rs.next()){ %>										
-											<th><h3>Your File is uploaded successfully</h3></th>									
-										<%} else{%>
-											<th><h3>Your File is uploading.........</h3></th>
-										<%} %>										
+								<table width="650" bgcolor="#41A317">
+									<th><font color="white" size="4px">Play File Board</font></th>
 								</table>
 								<%
-								int i =0;
-								String QueryString1 = "SELECT * from dtnrequest";
-							   	rs = statement.executeQuery(QueryString1);
-							   	if(rs.next()){	   	
-							   	
-							   	}else{
-							   	%>
-							   	<h3 align="center"></h3>							   	
-							   	<%
-							   		/*System.out.print("RemoveUsb_");*/}								
-									// close all the connections.
-						
-									rs.close();						
-									statement.close();
-									connection.close();
-									} catch (Exception ex) {								
-							  		ex.printStackTrace();							   
-							    	}
+									int i =0 ;
+									boolean ch = false;
+									String choice = request.getParameter("id");									
+									
+									String imgPath = "C://Users//UserDaemon//git//UserApi//UserApi//WebContent//DataServer//";
+									File dtnDir = new File(imgPath);
+									String[] dataList = dtnDir.list();
+									int length =  dataList.length;
+									String findfile = choice+".mp4";
+									String name = "Form";
+									
+									//System.err.println(findfile);
+									//System.err.println(length);
+									
+										for(i=0;i<dataList.length;i++){
+											
+											//System.out.println("findfile"+findfile);
+											//System.out.println("dataList"+dataList[i]);
+											if(findfile.equals(dataList[i])){
+												ch = true;
+											}else{
+												continue;
+											}
+										}
+										if(ch){%>
+											<video width="640" height="480" controls="controls">
+												<source src="DataServer/<%=findfile %>" type="video/mp4">
+												<source src="DataServer/<%=findfile %>" type="video/ogg">
+											</video>
+										<%}else{%>
+											<br></br><p align="center"><b><font size = "2">Your File Is Not available In the Local Directory Please Send Download Command Below</font></b></p>
+											<p align="center">
+												<form name="<%=name%>" action="FileDownload" method="post" align="center">
+												
+												<a href="#" id="1" onclick="document.<%=name%>.submit()">												
+													<b><font size = "4">Download File</font></b>
+												</a>											
+												<input type="hidden" name="fileid" value="<%=findfile%>" />
+											</form>
+										</p>
+										<% }
+									
 								%>
+																
 							</div>
 							<br class="clear" />
 						</div>
@@ -126,7 +137,7 @@ if(username == null){
 						<li><h2>Basic Search</h2>
 							<div id="search" align="center"><b><font color="maroon" size="4"></font></b>
 								<table align="center">
-								<tr><td><br/></td></tr>									
+								<tr><td><br/></td></tr>																
 									<tr><td align="left">
 										<form method="post" action="Search.jsp">
 											<div>
@@ -144,10 +155,7 @@ if(username == null){
 						<div id="adsearch" align="center"><b><font color="#571B7e" size="4"></font></b>
 							<form method="post" action="advancesearch.jsp">
 								<table align="center">
-									<tr>
-										<td><br></td>
-										<td></td>									
-									</tr>										
+								<tr><td><br/></td><td><br/></td></tr>																			
 									<tr>
 										<td align="left"><b>Title</b></td>
 										<td align="right"><input type="text" name="title" width="20"/></td>											
@@ -188,8 +196,7 @@ if(username == null){
 												<option>Other</option>
 											</select>												
 										</td>
-									</tr>
-									<tr><td><br/></td></tr>
+									</tr>									
 									<tr>
 										<td align="left"><b></b></td>
 										<td align="right"><input type="submit" value="Search" width="25px"/></td>															
